@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Touch - Detail Produk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <!-- Sidebar menu button -->
+  <button class="menu-toggle">☰</button>
+
+  <!-- Logo Touch di tengah -->
+  <a href="index.html" class="logo-center">
+    <img src="icon1.png" alt="Touch Logo" class="logo">
+  </a>
+
+  <!-- Cart icon di kanan -->
+  <a href="cart.html" class="cart-icon">
+    <img src="troly.png" alt="Cart" class="cart-img">
+    <span id="cartBadge">0</span>
+  </a>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <button class="close-btn">✕</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="collection.html">Collection</a></li>
+    <li><a href="about.html">About Us</a></li>
+  </ul>
+</div>
+
+<!-- Detail Produk -->
+<section class="product-detail">
+
+  <!-- Slider Gambar Produk -->
+  <div class="detail-slider">
+    <div class="slides"></div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </div>
+
+  <!-- Info Produk -->
+<section class="product-detail">
+  <div class="detail-slider">
+    <div class="slides"></div>
+    <button class="prev">‹</button>
+    <button class="next">›</button>
+  </div>
+  <div class="detail-info">
+    <h2 id="productName"></h2>
+    <p id="productPrice"></p>
+    <p class="desc" id="productDesc"></p>
+    <button class="btn-black" id="addCartBtn">+ Add to Cart</button>
+  </div>
+</section>
+
+<!-- Produk Rekomendasi -->
+<section class="related">
+  <h3>Produk Lainnya</h3>
+  <div id="relatedProducts" class="related-grid"></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

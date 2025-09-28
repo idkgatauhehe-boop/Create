@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Touch Studio - Checkout</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Checkout Page Styling (modern & simpel) ===== */
+    .checkout {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 20px;
+    }
+
+    .checkout h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input, textarea, select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-black {
+      background: #000;
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s;
+      border: none;
+    }
+
+    .btn-black:hover {
+      background: #333;
+    }
+
+    .order-summary {
+      background: #fff;
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .order-summary h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      font-size: 0.95rem;
+    }
+
+    #orderTotal {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <button class="menu-toggle">☰</button>
+    <a href="index.html" class="logo-center">
+      <img src="icon1.png" alt="Touch Logo" class="logo">
+    </a>
+    <a href="cart.html" class="cart-icon">
+      <img src="troly.png" alt="Cart" class="cart-img">
+      <span id="cartBadge">0</span>
+    </a>
+  </header>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <button class="close-btn">✕</button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </div>
+
+  <!-- Checkout Section -->
+  <section class="checkout">
+    <h2>CHECKOUT</h2>
+
+    <!-- Form Data Pembeli -->
+    <form id="checkoutForm">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="address">Shipping Address</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" name="payment" required>
+        <option value="Qris">Qris</option>
+        <option value="BCA">BCA</option>
+      </select>
+
+      <button type="submit" class="btn-black">PLACE ORDER</button>
+    </form>
+
+    <!-- Ringkasan Order -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div id="orderItems"></div>
+      <p id="orderTotal">TOTAL: IDR 0</p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    // ========== Render Ringkasan Order di Checkout ==========
+    document.addEventListener("DOMContentLoaded", () => {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const orderItems = document.getElementById("orderItems");
+      const orderTotal = document.getElementById("orderTotal");
+
+      orderItems.innerHTML = "";
+      let total = 0;
+
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("order-item");
+        div.innerHTML = `
+          <p>${item.name} (x${item.qty})</p>
+          <p>IDR ${(item.price * item.qty).toLocaleString()}</p>
+        `;
+        orderItems.appendChild(div);
+        total += item.price * item.qty;
+      });
+
+      orderTotal.textContent = "TOTAL: IDR " + total.toLocaleString();
+
+      // Form Submit -> Kirim ke WhatsApp
+      const checkoutForm = document.getElementById("checkoutForm");
+      checkoutForm.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const name = document.getElementById("fullname").value;
+        const phone = document.getElementById("phone").value;
+        const address = document.getElementById("address").value;
+        const payment = document.getElementById("payment").value;
+
+        // Susun detail order
+        let orderText = `*New Order - Touch Studio*%0A%0A`;
+        orderText += `👤 Name: ${name}%0A`;
+        orderText += `📞 Phone: ${phone}%0A`;
+        orderText += `📍 Address: ${address}%0A`;
+        orderText += `💳 Payment: ${payment}%0A%0A`;
+        orderText += `🛒 *Order Items*:%0A`;
+
+        cart.forEach(item => {
+          orderText += `- ${item.name} (x${item.qty}) = IDR ${(item.price * item.qty).toLocaleString()}%0A`;
+        });
+
+        orderText += `%0A💰 TOTAL: IDR ${total.toLocaleString()}`;
+
+        // Nomor WA tujuan (ganti dengan nomor kamu, format internasional tanpa 0, contoh: 628123456789)
+        const waNumber = "6289513459707";
+
+        // Redirect ke WhatsApp
+        const waUrl = `https://wa.me/${waNumber}?text=${orderText}`;
+        window.open(waUrl, "_blank");
+
+        // Kosongkan cart setelah order
+        localStorage.removeItem("cart");
+      });
+    });
+  </script>
+</body>
+</html>

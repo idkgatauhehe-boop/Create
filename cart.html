@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Touch Studio - Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <button class="menu-toggle">☰</button>
+    <a href="index.html" class="logo-center">
+      <img src="icon1.png" alt="Touch Logo" class="logo">
+    </a>
+    <a href="cart.html" class="cart-icon">
+      <img src="troly.png" alt="Cart" class="cart-img">
+      <span id="cartBadge">0</span>
+    </a>
+  </header>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <button class="close-btn">✕</button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </div>
+
+  <!-- Cart Section -->
+  <section class="cart">
+    <h2>SHOPPING BAG</h2>
+    <div id="cartItems"></div>
+    <div class="cart-footer">
+      <p id="cartSubtotal">SUBTOTAL IDR 0</p>
+      <div class="cart-buttons">
+        <a href="index.html" class="btn-outline">CONTINUE SHOPPING</a>
+        <a href="checkout.html" class="btn-black">CHECKOUT</a>
+      </div>
+      <button class="btn-clear" onclick="clearCart()">CLEAR CART</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

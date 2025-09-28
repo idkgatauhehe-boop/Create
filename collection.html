@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <button class="close-btn">✕</button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <button class="menu-toggle">☰</button>
+    <a href="index.html" class="logo-center">
+      <img src="icon1.png" alt="Touch Logo" class="logo">
+    </a>
+    <div class="nav-icons">
+      <a href="cart.html" class="cart-icon">
+        <img src="troly.png" alt="Cart" class="cart-img">
+        <span id="cartBadge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Filter & Urutan -->
+  <section class="collection-controls">
+    <div class="filter-btn">
+        <img src="filter.png" alt="filter" class="filter-img">
+    </div>
+    <div class="sort-btn">
+        <img src="sort.png" alt="sort" class="sort-img">
+    </div>
+ </section>
+
+<!-- Label status -->
+<div class="collection-status">
+  <span id="filterLabel">Filter: ALL</span> | 
+  <span id="sortLabel">Sort: default</span>
+</div>
+
+  <!-- Grid Produk -->
+  <main id="collection">
+    <h2 style="padding: 20px;">All Products</h2>
+    <div class="products" id="collectionProducts">
+      <!-- Produk otomatis diisi oleh script.js -->
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
